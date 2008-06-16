@@ -41,7 +41,7 @@ import org.apache.log4j.PropertyConfigurator;
 import de.fhg.fokus.se.ethnoarc.common.DBConstants.DBElementTypes;
 
 /**
- * $Id: DBHandling.java,v 1.1 2008/06/16 08:24:06 fchristian Exp $ 
+ * $Id: DBHandling.java,v 1.2 2008/06/16 14:21:58 fchristian Exp $ 
  * @author fokus
  */
 public class DBHandling {

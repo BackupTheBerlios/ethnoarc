@@ -41,19 +41,6 @@ import javax.swing.event.MouseInputListener;
 import javax.swing.table.JTableHeader;
 
 
-/**
- * $Id: NewJFrame.java,v 1.1 2008/06/16 08:24:06 fchristian Exp $
-* This code was edited or generated using CloudGarden's Jigloo
-* SWT/Swing GUI Builder, which is free for non-commercial
-* use. If Jigloo is being used commercially (ie, by a corporation,
-* company or business for any purpose whatever) then you
-* should purchase a license for each developer using Jigloo.
-* Please visit www.cloudgarden.com for details.
-* Use of Jigloo implies acceptance of these licensing terms.
-* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED FOR
-* THIS MACHINE, SO JIGLOO OR THIS CODE CANNOT BE USED
-* LEGALLY FOR ANY CORPORATE OR COMMERCIAL PURPOSE.
-*/
 public class NewJFrame extends javax.swing.JFrame implements MouseInputListener{
 	private JMenuBar jMenuBar1;
 	private JMenu jMenu1;
@@ -63,9 +50,6 @@ public class NewJFrame extends javax.swing.JFrame implements MouseInputListener{
 	private static NewJFrame inst;
 	private static int WINDOWS_HEADLINE_HEIGHT = 30;
 
-	/**
-	* Auto-generated main method to display this JFrame
-	*/
 	public static void main(String[] args) {
 		inst = new NewJFrame();
 		inst.setVisible(true);

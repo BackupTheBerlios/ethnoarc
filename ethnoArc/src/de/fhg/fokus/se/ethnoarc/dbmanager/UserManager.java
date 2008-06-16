@@ -38,7 +38,7 @@ import de.fhg.fokus.se.ethnoarc.common.DBException;
 import de.fhg.fokus.se.ethnoarc.common.DBSqlHandler;
 import de.fhg.fokus.se.ethnoarc.dbmanager.AppConstants.UserLevels;
 /**
- * $Id: UserManager.java,v 1.1 2008/06/16 08:24:06 fchristian Exp $ 
+ * $Id: UserManager.java,v 1.2 2008/06/16 14:21:58 fchristian Exp $ 
  * @author fokus
  */
 public class UserManager {

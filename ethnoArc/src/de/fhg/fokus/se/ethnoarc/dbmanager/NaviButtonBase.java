@@ -34,7 +34,7 @@ import javax.swing.JButton;
 import javax.swing.SwingConstants;
 
 /**
- * $Id: NaviButtonBase.java,v 1.1 2008/06/16 08:24:06 fchristian Exp $ 
+ * $Id: NaviButtonBase.java,v 1.2 2008/06/16 14:21:58 fchristian Exp $ 
  * @author fokus
  */
 public class NaviButtonBase extends JButton {

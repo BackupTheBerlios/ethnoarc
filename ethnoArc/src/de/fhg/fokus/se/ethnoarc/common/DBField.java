@@ -32,7 +32,7 @@ import java.text.ParseException;
 import org.apache.log4j.Logger;
 
 /**
- * $Id: DBField.java,v 1.1 2008/06/16 08:24:06 fchristian Exp $
+ * $Id: DBField.java,v 1.2 2008/06/16 14:21:58 fchristian Exp $
  * This class defines the structure of a data.
  * @author fokus
  */

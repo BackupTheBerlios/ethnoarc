@@ -41,7 +41,7 @@ import de.fhg.fokus.se.ethnoarc.common.DBConstants.DBElementTypes;
  * But for ease of understanding the database strucutre, ethnoArc db elements are parsed to create a strucuture as that of a conventional database
  * (tables & elements) and named accordingly. 
  * <p>
- * $Id: EADBDescription.java,v 1.1 2008/06/16 08:24:06 fchristian Exp $ 
+ * $Id: EADBDescription.java,v 1.2 2008/06/16 14:21:58 fchristian Exp $ 
  * @author fokus
  */
 public class EADBDescription implements Serializable{

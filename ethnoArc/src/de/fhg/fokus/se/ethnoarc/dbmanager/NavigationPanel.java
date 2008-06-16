@@ -51,7 +51,7 @@ import de.fhg.fokus.se.ethnoarc.dbmanager.AppConstants.UserLevels;
 import de.fhg.fokus.se.ethnoarc.dbmanager.MainUIFrame.MessageLevel;
 
 /**
- * $Id: NavigationPanel.java,v 1.1 2008/06/16 08:24:06 fchristian Exp $ 
+ * $Id: NavigationPanel.java,v 1.2 2008/06/16 14:21:58 fchristian Exp $ 
  * @author fokus
  */
 public class NavigationPanel extends JPanel implements ActionListener {
