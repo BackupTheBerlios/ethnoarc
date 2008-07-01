@@ -62,7 +62,7 @@ import de.fhg.fokus.se.ethnoarc.queryServer.QueryServerInterface;
 
 public class EthnoMARS implements GraphSelectionListener {
 	
-    public  static  String Version = "V2.107"; 
+    public  static  String Version = "V2.108"; 
     
 	public void valueChanged(GraphSelectionEvent e) {
 		GraphSelectionModel gsm = (GraphSelectionModel) e.getSource();
