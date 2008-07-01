@@ -45,7 +45,7 @@ import org.apache.log4j.PatternLayout;
 
 import de.fhg.fokus.se.ethnoarc.dbmanager.helper.TextPaneAppender;
 /**
- * $Id: LogPanel.java,v 1.2 2008/06/16 14:21:58 fchristian Exp $ 
+ * $Id: LogPanel.java,v 1.3 2008/07/01 12:08:52 fchristian Exp $ 
  * The panel to display the log output.
  * @author fokus
  */

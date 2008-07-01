@@ -71,16 +71,16 @@ public class ethnoArc_Description_Parser {
 		sDbUrl = "jdbc:mysql://127.0.0.1:3306/";
 		sFile = "Enter XML file or directory with -xml option.";
 
-		sUsr = "admin";
-		sPwd = "adminPW";
+		sUsr = "username";
+		sPwd = "password";
 		//sDbUrl = "jdbc:mysql://localhost:3306/";
 
 		sDbUrl = "jdbc:mysql://bruce.fokus.fraunhofer.de:3306/";
 		//sFile = "q:/ethnoarc/scheme/Address_Reference_Example";
 		//sDB = "ethnoArc";
 
-		sFile = "c:/ethnoarc/ief/";
-		sDB = "ethnoArc_ief4";
+		sFile = "c:/ethnoarc/DemoArchiv/";
+		sDB = "ethnoArc_demo";
 		
 		//sFile = "c:/ethnoarc/emem/";
 		//sDB = "ethnoArc_emem";

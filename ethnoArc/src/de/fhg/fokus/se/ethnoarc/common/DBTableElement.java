@@ -42,7 +42,7 @@ import de.fhg.fokus.se.ethnoarc.dbmanager.MainUIFrame;
  * This class provides operation to get the properties of the elements along with 
  * methods to get values of the element. <p>
  * 
- * $Id: DBTableElement.java,v 1.2 2008/06/16 14:21:58 fchristian Exp $ 
+ * $Id: DBTableElement.java,v 1.3 2008/07/01 12:08:52 fchristian Exp $ 
  * @author fokus
 
  */

@@ -416,9 +416,20 @@ public class ControlFrame implements ActionListener, WindowListener, KeyListener
 		 // perform search on ENTER
 		 if((ke.getKeyCode()==10)&&(ke.getID()==401)&&thisJFrame.isFocused()){   
 			 QBM.performSearch();
-			 return true;
-			 
+			 return true;		 
 		 }
+		 // delete current item on CTRL-DEL
+		 if((ke.getKeyCode()==127)&&(ke.getID()==401)&&(ke.getModifiers()==2)&&thisJFrame.isFocused()){   
+			 QBM.removeSelectedElement();
+			 return true;		 
+		 }
+		 // add connecting result field on CTRL-INS
+		 if((ke.getKeyCode()==155)&&(ke.getID()==401)&&(ke.getModifiers()==2)&&thisJFrame.isFocused()){   
+			 QBM.AddConnectedField();
+			 return true;		 
+		 }
+
+		 //System.err.println(ke.getKeyCode()+ " "+ke.getID()+" "+ke.getModifiers());
 		return false;		 
 	 }
 }

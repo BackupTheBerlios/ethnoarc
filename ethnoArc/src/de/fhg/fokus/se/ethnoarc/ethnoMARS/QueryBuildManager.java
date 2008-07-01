@@ -984,13 +984,40 @@ public class QueryBuildManager extends Object implements Runnable, Serializable 
 
 	}
 
+	public void AddConnectedField() {
+		// add result field on keypress (or entry field if we already have a result field)
+		if (selectedElement==null)return;
+		QueryElement selectedQueryElement = queryElements.get(selectedElement);
+		if(selectedQueryElement.getType()!= QueryElement.TYPE_ELEMENT)return;
+		
+		// do we have outgoing connections?	
+		Iterator itc;
+		itc = selectedQueryElement.getConnections().keySet().iterator();
+		if(!itc.hasNext()) {AddConnectedResultField();return;}
+		// do we have incoming connections?	
+		Iterator itb = queryElements.keySet().iterator();
+		while (itb.hasNext()) {
+			QueryElement sourceElement = (QueryElement) queryElements.get(itb
+					.next());
+			itc = sourceElement.getConnections().keySet().iterator();
+			while (itc.hasNext()) {
+				String connection = (String) (itc.next());
+				if (connection.equals(selectedQueryElement.getName())) return;
+			}
+		}
+		// no incoming connections - so let's add an entry field
+		AddConnectedEntryField();
+		
+	}
+		
 	public void AddConnectedResultField() {
+		QueryElement selectedQueryElement = queryElements.get(selectedElement);		
 		QueryElement resultElement = new QueryElement("Result " + resultCount++);
 		resultElement.addInput("Result list");
 		resultElement.setType(QueryElement.TYPE_RESULT);
 		resultElement
 				.setEnglishDescription("Result fields determine which fields results will appear in the result matrix.");
-		QueryElement selectedQueryElement = queryElements.get(selectedElement);
+		
 		Point point = getGoodLocation(resultElement, selectedQueryElement
 				.getLeft(), selectedQueryElement.getTop()
 				+ selectedQueryElement.getHeight() + 20);
