@@ -33,7 +33,7 @@ import java.awt.event.FocusListener;
 
 import javax.swing.JPasswordField;
 /**
- * $Id: CustomPasswordField.java,v 1.3 2008/07/01 12:08:52 fchristian Exp $ 
+ * $Id: CustomPasswordField.java,v 1.4 2008/07/02 09:58:40 fchristian Exp $ 
  * @author fokus
  */
 public class CustomPasswordField extends JPasswordField implements FocusListener{

@@ -31,7 +31,7 @@ import java.awt.Color;
 import java.awt.Font;
 
 /**
- * $Id: AppConstants.java,v 1.3 2008/07/01 12:08:52 fchristian Exp $
+ * $Id: AppConstants.java,v 1.4 2008/07/02 09:58:40 fchristian Exp $
  * 
  * EthnoArc DB application related contants.
  */

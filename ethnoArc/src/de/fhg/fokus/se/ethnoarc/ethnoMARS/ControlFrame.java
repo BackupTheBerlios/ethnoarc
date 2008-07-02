@@ -72,6 +72,7 @@ public class ControlFrame implements ActionListener, WindowListener, KeyListener
     public static int initialX=0;  
     public static int initialY=0;  
     public static JButton searchButton;
+    public static boolean warnBeforeExit=true;
     
     public  void init() {
     // prepare archive access table
@@ -87,7 +88,7 @@ public class ControlFrame implements ActionListener, WindowListener, KeyListener
 	thisJFrame=frame;
     frame.setSize(200,100);
     frame.setLocation(initialX, initialY);
-    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 //    Where the GUI is created:
     JMenuBar menuBar;
     JMenu menu;
@@ -158,6 +159,9 @@ public class ControlFrame implements ActionListener, WindowListener, KeyListener
     frame.setJMenuBar(menuBar);
     frame.pack();
     frame.setVisible( true );    
+
+  //  frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
     
     frame.addWindowListener(this);
     
@@ -340,6 +344,16 @@ public class ControlFrame implements ActionListener, WindowListener, KeyListener
     	//System.err.println(e.getActionCommand());    	
     	if(e.getActionCommand().equals("\1Quit")){
     		appPropertyManager.writePropertyFile();
+    		if(warnBeforeExit){
+    			int n = JOptionPane.showConfirmDialog(
+    				    null,
+    				    "Do you really want to exit the application?",
+    				    "Exit confirmation",
+    				    JOptionPane.YES_NO_OPTION);
+    			if(n==0)System.exit(0);    	
+    			else return;
+    			
+    		}
     	   System.exit(0);    	
     	}
     	else if (e.getActionCommand().equals("\1Search")){
@@ -405,6 +419,16 @@ public class ControlFrame implements ActionListener, WindowListener, KeyListener
 	public void windowClosed(WindowEvent arg0) {}
 	public void windowClosing(WindowEvent arg0) {
 		appPropertyManager.writePropertyFile();
+		if(warnBeforeExit){
+			int n = JOptionPane.showConfirmDialog(
+				    null,
+				    "Do you really want to exit the application?",
+				    "Exit confirmation",
+				    JOptionPane.YES_NO_OPTION);
+			if(n==0)System.exit(0);    	
+			else return;			
+		}
+		System.exit(0);
 	}
 	public void windowDeactivated(WindowEvent arg0) {}
 	public void windowDeiconified(WindowEvent arg0) {}

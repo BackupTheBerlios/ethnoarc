@@ -65,7 +65,7 @@ import de.fhg.fokus.se.ethnoarc.dbmanager.DataFieldUI.fieldUITypes;
 import de.fhg.fokus.se.ethnoarc.dbmanager.helper.Utils;
 
 /**
- * $Id: ElementPanel.java,v 1.3 2008/07/01 12:08:52 fchristian Exp $ 
+ * $Id: ElementPanel.java,v 1.4 2008/07/02 09:58:40 fchristian Exp $ 
  * @author FOKUS
  */
 public class ElementPanel extends javax.swing.JPanel implements ActionListener 

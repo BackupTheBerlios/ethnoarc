@@ -39,7 +39,7 @@ import de.fhg.fokus.se.ethnoarc.common.DBConstants.DBElementTypes;
 import de.fhg.fokus.se.ethnoarc.dbmanager.TablePanel;
 
 /**
- * $Id: DBStructure.java,v 1.3 2008/07/01 12:08:52 fchristian Exp $ 
+ * $Id: DBStructure.java,v 1.4 2008/07/02 09:58:40 fchristian Exp $ 
  * @author fokus
  */
 public class DBStructure implements Serializable {

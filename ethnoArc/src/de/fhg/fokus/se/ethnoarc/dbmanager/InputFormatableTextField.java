@@ -44,7 +44,7 @@ import javax.swing.text.MaskFormatter;
 import org.apache.log4j.Logger;
 
 /**
- * $Id: InputFormatableTextField.java,v 1.3 2008/07/01 12:08:52 fchristian Exp $ 
+ * $Id: InputFormatableTextField.java,v 1.4 2008/07/02 09:58:40 fchristian Exp $ 
  * @author fokus
  */
 public class InputFormatableTextField extends JFormattedTextField implements FocusListener{

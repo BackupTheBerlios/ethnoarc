@@ -54,7 +54,7 @@ import de.fhg.fokus.se.ethnoarc.dbmanager.MainUIFrame.MessageLevel;
 import de.fhg.fokus.se.ethnoarc.dbmanager.helper.TextAreaEditor;
 
 /**
- * $Id: DataFieldUI.java,v 1.3 2008/07/01 12:08:52 fchristian Exp $
+ * $Id: DataFieldUI.java,v 1.4 2008/07/02 09:58:40 fchristian Exp $
  * The user interface to display a data field. Different types of UI is used to
  * display different types of data fields specified by the list of table references
  * the field has. <br><br>

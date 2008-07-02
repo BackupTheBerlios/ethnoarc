@@ -41,7 +41,7 @@ import java.util.Vector;
 import org.apache.log4j.Logger;
 
 /**
- * $Id: DBSqlHandler.java,v 1.3 2008/07/01 12:08:52 fchristian Exp $ 
+ * $Id: DBSqlHandler.java,v 1.4 2008/07/02 09:58:40 fchristian Exp $ 
  * @author fokus
  */
 public class DBSqlHandler {

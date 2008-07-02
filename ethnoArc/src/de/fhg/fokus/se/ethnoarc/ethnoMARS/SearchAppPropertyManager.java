@@ -148,7 +148,13 @@ public class SearchAppPropertyManager {
 	    		if(resDis.equalsIgnoreCase("COMMA"))QueryBuildManager.CSVseparator=',';
 	    		if(resDis.equalsIgnoreCase("SEMICOLON"))QueryBuildManager.CSVseparator=';';
 	    		if(resDis.equalsIgnoreCase("TAB"))QueryBuildManager.CSVseparator='\t';
-	    		}				    	
+	    		}
+	    	if(((String)key).equals("ConfirmClose")){
+	    		String resDis=new String(properties.getProperty("ConfirmClose"));
+	    		if(resDis.equalsIgnoreCase("TRUE"))ControlFrame.warnBeforeExit=true;
+	    		else ControlFrame.warnBeforeExit=false;
+	    		}
+	    	
 	    	if(((String)key).equals("TooltipDelay")){
 	    		String resDel=new String(properties.getProperty("TooltipDelay"));
 				int val=0;
@@ -216,7 +222,10 @@ public class SearchAppPropertyManager {
     	if(QueryBuildManager.CSVseparator==',')setPropertyValue("CSVStyle", "COMMA");
     	if(QueryBuildManager.CSVseparator==';')setPropertyValue("CSVStyle", "SEMICOLON");    	    
     	if(QueryBuildManager.CSVseparator=='\t')setPropertyValue("CSVStyle", "TAB");    	    
-    	
+
+    	if(ControlFrame.warnBeforeExit)setPropertyValue("ConfirmClose", "TRUE");
+    	else setPropertyValue("ConfirmClose", "FALSE");
+
     	setPropertyValue("TooltipDelay", ""+QueryBuildManager.tooltipDelay);
     	if(ControlFrame.QBM!=null){
     		int x=ControlFrame.thisJFrame.getX();

@@ -52,6 +52,7 @@ public class OptionDialog {
 	JRadioButton[] radioButtons ;
 	JRadioButton[] wildcardButtons ;
 	JRadioButton[] csvButtons ;
+	JRadioButton[] closeButtons ;
 	JFormattedTextField 		tooltipEntry; 
 	public  void start() {
 
@@ -174,6 +175,34 @@ public class OptionDialog {
 				tooltipEntry,
 				okTooltipButton);
 
+		
+
+		closeButtons = new JRadioButton[2];
+		ButtonGroup closeGroup = new ButtonGroup();
+		closeButtons[0] = new JRadioButton("Confirm quit ");
+		closeButtons[1] = new JRadioButton("Quit without confirmation ");
+
+		for (int i = 0; i < 2; i++) {
+			closeGroup.add(closeButtons[i]);
+		}
+
+		if(ControlFrame.warnBeforeExit)closeButtons[0].setSelected(true);
+		else closeButtons[1].setSelected(true);
+
+		JButton okCloseButton = new JButton("OK");
+		okCloseButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(closeButtons[0].isSelected())ControlFrame.warnBeforeExit=true;
+				if(closeButtons[1].isSelected())ControlFrame.warnBeforeExit=false;
+				ControlFrame.appPropertyManager.writePropertyFile();
+				frame.dispose();     
+			}
+		});    
+
+		JPanel closePanel =createPane("On closing the main window:",
+				closeButtons,
+				okCloseButton);
+		
 		//Create and set up the window.
 		frame = new JFrame("Options");
 		frame.setMinimumSize(new Dimension(350,190));
@@ -194,6 +223,9 @@ public class OptionDialog {
 		tabbedPane.addTab("Tooltip", null,
 				tooltipPanel,
 		"Set tooltip duration");        
+		tabbedPane.addTab("Quitting", null,
+				closePanel,
+		"Set closing confirmation");        
 
 		tabbedPane.setOpaque(true);
 		frame.setContentPane(tabbedPane);

@@ -27,7 +27,7 @@
 */
 package de.fhg.fokus.se.ethnoarc.common;
 /**
- * $Id: DBConstants.java,v 1.3 2008/07/01 12:08:52 fchristian Exp $ 
+ * $Id: DBConstants.java,v 1.4 2008/07/02 09:58:40 fchristian Exp $ 
  * @author fokus
  */
 public class DBConstants {

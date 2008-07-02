@@ -46,7 +46,7 @@ import de.fhg.fokus.se.ethnoarc.dbmanager.helper.SpringUtilities;
 
 
 /**
- * $Id: DBConnectionPanel.java,v 1.3 2008/07/01 12:08:52 fchristian Exp $
+ * $Id: DBConnectionPanel.java,v 1.4 2008/07/02 09:58:40 fchristian Exp $
  * Panel to display database connection configuration. 
  * @author fokus
  */
