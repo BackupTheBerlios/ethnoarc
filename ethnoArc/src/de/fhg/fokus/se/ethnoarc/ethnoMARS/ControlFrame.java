@@ -68,11 +68,18 @@ public class ControlFrame implements ActionListener, WindowListener, KeyListener
     public static SearchAppPropertyManager appPropertyManager; 
     public static QueryBuildManager QBM; 
     public static String saveName=null; 
+    public static String loadsaveDir=null; 
     private static int colorNum=0;  
     public static int initialX=0;  
     public static int initialY=0;  
     public static JButton searchButton;
     public static boolean warnBeforeExit=true;
+    
+    public static Color queryElementBG = new Color( 114 , 110 , 99);
+    public static Color queryElementText = new Color( 255, 255, 255 );
+    public static Color queryElementTextarea =  new Color( 214, 213, 209 );
+    public static Color queryElementBorder =new Color( 0, 0, 0 );
+    public static Color frameBG = new Color(164, 159, 153);    	
     
     public  void init() {
     // prepare archive access table
@@ -152,7 +159,7 @@ public class ControlFrame implements ActionListener, WindowListener, KeyListener
     //QBM.setScrollPane(scrollPane);
     //frame.getContentPane().add(QBM.getQueryCanvas());
     frame.setContentPane(QBM.getQueryCanvas());
-    frame.setBackground( new Color(164, 159, 153  ));
+    frame.setBackground(new  Color(164, 159, 153  ));
         
     frame.setPreferredSize( new Dimension(QBM.getQueryCanvas().getWidth()+40,QBM.getQueryCanvas().getHeight()));
     frame.setSize( new Dimension(QBM.getQueryCanvas().getWidth()+40,QBM.getQueryCanvas().getHeight()));    
@@ -162,7 +169,6 @@ public class ControlFrame implements ActionListener, WindowListener, KeyListener
 
   //  frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-    
     frame.addWindowListener(this);
     
     //searchButton.addKeyListener(this);
@@ -285,12 +291,13 @@ public class ControlFrame implements ActionListener, WindowListener, KeyListener
 		File file;
 		if(saveName==null)file = new File("ethnoArc.query");
 		else file = new File( saveName);
-	    JFileChooser fc = new JFileChooser();
+	    JFileChooser fc = new JFileChooser(loadsaveDir);
 		fc.setSelectedFile( file );
 		fc.addChoosableFileFilter(thisFrame.new QueryFilter());
 		int returnVal = fc.showSaveDialog(thisJFrame);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
         	saveName=fc.getSelectedFile().getAbsolutePath();
+        	loadsaveDir=fc.getSelectedFile().getPath();
         	saveArchiveInfo();
         }
 	}
@@ -317,11 +324,12 @@ public class ControlFrame implements ActionListener, WindowListener, KeyListener
 		File file;
 		if(saveName==null)file = new File("ethnoArc.query");
 		else file = new File( saveName);		
-	    JFileChooser fc = new JFileChooser();
+	    JFileChooser fc = new JFileChooser(loadsaveDir);
 		fc.setSelectedFile( file );
 		fc.addChoosableFileFilter(thisFrame.new QueryFilter());
 		int returnVal = fc.showOpenDialog(thisJFrame);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
+        	loadsaveDir=fc.getSelectedFile().getPath();
         	saveName=fc.getSelectedFile().getAbsolutePath();
         }
         else return;       
@@ -360,6 +368,14 @@ public class ControlFrame implements ActionListener, WindowListener, KeyListener
     		QBM.performSearch();
     	}
     	else if (e.getActionCommand().equals("\1New")){
+    		if(warnBeforeExit){
+    			int n = JOptionPane.showConfirmDialog(
+    				    null,
+    				    "Do you really want to clear the workspace?",
+    				    "Confirmation",
+    				    JOptionPane.YES_NO_OPTION);
+    			if(n!=0)return;    			
+    		}
     		QBM.clear();
     	}
     	else if (e.getActionCommand().equals("\1Save")){

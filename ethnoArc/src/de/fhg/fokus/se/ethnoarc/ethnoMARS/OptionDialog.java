@@ -34,9 +34,11 @@ import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.NumberFormat;
+import java.util.Iterator;
 
 
 import javax.swing.JButton;
+import javax.swing.JColorChooser;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -53,9 +55,16 @@ public class OptionDialog {
 	JRadioButton[] wildcardButtons ;
 	JRadioButton[] csvButtons ;
 	JRadioButton[] closeButtons ;
+	JButton[] colorButtons ;
+	
 	JFormattedTextField 		tooltipEntry; 
 	public  void start() {
 
+		//Create and set up the window.
+		frame = new JFrame("Options");
+		frame.setMinimumSize(new Dimension(400,190));
+		frame.setPreferredSize(new Dimension(400,190));
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
 		radioButtons = new JRadioButton[3];
 		ButtonGroup group = new ButtonGroup();
@@ -203,12 +212,134 @@ public class OptionDialog {
 				closeButtons,
 				okCloseButton);
 		
-		//Create and set up the window.
-		frame = new JFrame("Options");
-		frame.setMinimumSize(new Dimension(350,190));
-		frame.setPreferredSize(new Dimension(350,190));
-		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
+		
+		JPanel innerColorPanel = new JPanel();
+		innerColorPanel.setLayout(null);
+		innerColorPanel.setSize(350,80);
+		innerColorPanel.setLocation(0,0);
+		innerColorPanel.setPreferredSize(new Dimension(350,80));
+		
+		JButton okColorButton = new JButton("OK");
+
+		okColorButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ControlFrame.appPropertyManager.writePropertyFile();
+				frame.dispose();     
+			}
+		});    
+
+		JPanel colorPanel =  createPane("Set element colors:",
+				innerColorPanel,okColorButton);
+		
+		colorButtons = new JButton[4];
+		
+		colorButtons[0] = new JButton();
+		colorButtons[0].setLocation(10,0);
+		colorButtons[0].setSize(340,80);
+		colorButtons[0].setBackground(ControlFrame.frameBG);
+		colorButtons[0].setForeground(ControlFrame.frameBG);
+		colorButtons[0].setBorderPainted(false);
+		colorButtons[0].setLayout(null);
+		colorButtons[0].addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {				
+			       Color newColor = JColorChooser.showDialog(
+	                		null,
+	                        "Choose background color",
+	                        ControlFrame.frameBG);
+			       if(newColor!=null){
+			       ControlFrame.frameBG=newColor;
+			       QueryBuildManager.viewportBkgColor=newColor;
+			       ControlFrame.QBM.redrawCanvas();
+			       colorButtons[0].setBackground(ControlFrame.frameBG);
+			       colorButtons[0].setBackground(ControlFrame.frameBG);
+			       }
+			       
+			}
+		});    
+		
+		colorButtons[1] = new JButton();
+		colorButtons[1].setLocation(10,10);
+		colorButtons[1].setSize(215,47);
+		colorButtons[1].setBorderPainted(false);
+		colorButtons[1].setBackground(ControlFrame.queryElementBorder);
+		colorButtons[1].setForeground(ControlFrame.queryElementBorder);
+		colorButtons[1].setLayout(null);
+		
+		colorButtons[1].addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {				
+			       Color newColor = JColorChooser.showDialog(
+	                		null,
+	                        "Choose border color",
+	                        ControlFrame.queryElementBorder);
+			       if(newColor!=null){
+			       ControlFrame.queryElementBorder=newColor;
+			       colorButtons[1].setBackground(ControlFrame.queryElementBorder);
+			       colorButtons[1].setBackground(ControlFrame.queryElementBorder);
+			       ControlFrame.QBM.repaintElements();	
+			       }			       
+			}
+		});    
+		
+		
+		colorButtons[2] = new JButton();
+		colorButtons[2].setLocation(2,2);
+		colorButtons[2].setSize(211,21);
+		colorButtons[2].setBorderPainted(false);
+		colorButtons[2].setBackground(ControlFrame.queryElementBG);
+		colorButtons[2].setForeground(ControlFrame.queryElementBG);
+		colorButtons[2].setLayout(null);
+		colorButtons[2].addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {				
+			       Color newColor = JColorChooser.showDialog(
+	                		null,
+	                        "Choose background color",
+	                        ControlFrame.queryElementBG);
+			       if(newColor!=null){
+			       ControlFrame.queryElementBG=newColor;
+			       colorButtons[2].setBackground(ControlFrame.queryElementBG);
+			       colorButtons[2].setBackground(ControlFrame.queryElementBG);
+			       ControlFrame.QBM.repaintElements();	
+			       }			       
+			}
+		});    
+		
+		colorButtons[3] = new JButton();
+		colorButtons[3].setLocation(2,24);
+		colorButtons[3].setSize(211,21);
+		colorButtons[3].setBorderPainted(false);
+		colorButtons[3].setBackground(ControlFrame.queryElementTextarea);
+		colorButtons[3].setForeground(ControlFrame.queryElementTextarea);
+		colorButtons[3].setLayout(null);
+		colorButtons[3].addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {				
+			       Color newColor = JColorChooser.showDialog(
+	                		null,
+	                        "Choose entry field color",
+	                        ControlFrame.queryElementTextarea);
+			       if(newColor!=null){
+			       ControlFrame.queryElementTextarea=newColor;
+			       colorButtons[3].setBackground(ControlFrame.queryElementTextarea);
+			       colorButtons[3].setBackground(ControlFrame.queryElementTextarea);
+			       ControlFrame.QBM.repaintElements();					
+			       }			       
+			    }			
+		});    
+		
+		innerColorPanel.add(colorButtons[0]);
+		colorButtons[0].add(colorButtons[1]);
+		colorButtons[1].add(colorButtons[2]);
+		colorButtons[1].add(colorButtons[3]);
+		
+		JLabel efLabel = new JLabel("Entry Field");
+
+		efLabel.setLocation(15,3);
+		efLabel.setSize(80,12);
+		efLabel.setForeground(ControlFrame.queryElementText);
+		colorButtons[2].add(efLabel);
+		
+
+		
 
 		JTabbedPane tabbedPane = new JTabbedPane();
 		tabbedPane.addTab("Results", null,
@@ -226,6 +357,9 @@ public class OptionDialog {
 		tabbedPane.addTab("Quitting", null,
 				closePanel,
 		"Set closing confirmation");        
+		tabbedPane.addTab("Colors", null,
+				colorPanel,
+		"Set color scheme");        
 
 		tabbedPane.setOpaque(true);
 		frame.setContentPane(tabbedPane);
@@ -251,19 +385,36 @@ public class OptionDialog {
 		pane.add(showButton, BorderLayout.PAGE_END);
 		return pane;
 	}    
+	
 	private JPanel createPane(String description,
-			JFormattedTextField entryField,
+			JPanel innerPanel,
 			JButton showButton) {
 
 		JPanel box = new JPanel();
 		JLabel label = new JLabel(description);
 		box.setLayout(new BoxLayout(box, BoxLayout.PAGE_AXIS));
 		box.add(label);
-		box.add(entryField);
+		box.add(innerPanel);
 
 		JPanel pane = new JPanel(new BorderLayout());
 		pane.add(box, BorderLayout.PAGE_START);
 		pane.add(showButton, BorderLayout.PAGE_END);
 		return pane;
 	}    
+    private JPanel createPane(String description,
+            JFormattedTextField entryField,
+            JButton showButton) {
+
+    JPanel box = new JPanel();
+    JLabel label = new JLabel(description);
+    box.setLayout(new BoxLayout(box, BoxLayout.PAGE_AXIS));
+    box.add(label);
+    box.add(entryField);
+
+    JPanel pane = new JPanel(new BorderLayout());
+    pane.add(box, BorderLayout.PAGE_START);
+    pane.add(showButton, BorderLayout.PAGE_END);
+    return pane;
+}    
+
 }

@@ -154,7 +154,25 @@ public class SearchAppPropertyManager {
 	    		if(resDis.equalsIgnoreCase("TRUE"))ControlFrame.warnBeforeExit=true;
 	    		else ControlFrame.warnBeforeExit=false;
 	    		}
-	    	
+	    	if(((String)key).equals("LoadSaveDir")){
+	    		ControlFrame.loadsaveDir=new String(properties.getProperty("LoadSaveDir"));
+	    		}
+	    	if(((String)key).equals("WorkspaceBackgroundColor")){	    		
+	    		ControlFrame.frameBG=getPropertyColor(new String(properties.getProperty("WorkspaceBackgroundColor")));
+	    	}
+	    	if(((String)key).equals("ElementBackgroundColor")){	    		
+	    		ControlFrame.queryElementBG=getPropertyColor(new String(properties.getProperty("ElementBackgroundColor")));
+	    	}
+	    	if(((String)key).equals("ElementTextColor")){	    		
+	    		ControlFrame.queryElementText=getPropertyColor(new String(properties.getProperty("ElementTextColor")));
+	    	}
+	    	if(((String)key).equals("ElementTextareaColor")){	    		
+	    		ControlFrame.queryElementTextarea=getPropertyColor(new String(properties.getProperty("ElementTextareaColor")));
+	    	}
+	    	if(((String)key).equals("ElementBorderColor")){	    		
+	    		ControlFrame.queryElementBorder=getPropertyColor(new String(properties.getProperty("ElementBorderColor")));
+	    	}
+	      	
 	    	if(((String)key).equals("TooltipDelay")){
 	    		String resDel=new String(properties.getProperty("TooltipDelay"));
 				int val=0;
@@ -223,6 +241,18 @@ public class SearchAppPropertyManager {
     	if(QueryBuildManager.CSVseparator==';')setPropertyValue("CSVStyle", "SEMICOLON");    	    
     	if(QueryBuildManager.CSVseparator=='\t')setPropertyValue("CSVStyle", "TAB");    	    
 
+      	setPropertyValue("WorkspaceBackgroundColor",  ControlFrame.frameBG.toString());
+      	setPropertyValue("ElementBackgroundColor",  ControlFrame.queryElementBG.toString());
+      	setPropertyValue("ElementTextColor",  ControlFrame.queryElementText.toString());
+      	setPropertyValue("ElementTextareaColor",  ControlFrame.queryElementTextarea.toString());
+      	setPropertyValue("ElementBorderColor",  ControlFrame.queryElementBorder.toString());
+        
+        
+
+    	if(ControlFrame.loadsaveDir!=null){
+    		setPropertyValue("LoadSaveDir", ControlFrame.loadsaveDir);
+    		}	    	
+    	
     	if(ControlFrame.warnBeforeExit)setPropertyValue("ConfirmClose", "TRUE");
     	else setPropertyValue("ConfirmClose", "FALSE");
 
@@ -257,7 +287,9 @@ public class SearchAppPropertyManager {
 	    	if(archiveInfo.useLocalLanguage) setPropertyValue("ArchiveLocalLanguage_"+archiveInfo.name,"true");
 	    	else setPropertyValue("ArchiveLocalLanguage_"+archiveInfo.name,"false");
 	    	
-	    	setPropertyValue("ArchiveColor_"+archiveInfo.name,  archiveInfo.color.toString());	    	
+	    	setPropertyValue("ArchiveColor_"+archiveInfo.name,  archiveInfo.color.toString());
+	    	
+	    	
 	    }
 
 		try {
@@ -287,4 +319,19 @@ public class SearchAppPropertyManager {
 		properties.setProperty(propName, propValue);
 	}
 	
+	private Color getPropertyColor(String colString){
+
+		int r=-1, g=-1, b=-1, val=0;
+		for(int i=0;i<colString.length();i++){
+			if((colString.charAt(i)>='0')&&(colString.charAt(i)<='9'))
+				val=val*10+(colString.charAt(i)-'0');
+			else if (colString.charAt(i)==']') b=val;
+			else if (colString.charAt(i)==','){
+				if(r==-1)r=val;
+				else g=val;
+				val=0;
+			}
+		}
+		return new Color(r,g,b);
+	}
 }

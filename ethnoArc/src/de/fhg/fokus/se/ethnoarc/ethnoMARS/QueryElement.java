@@ -118,10 +118,11 @@ public class QueryElement implements Serializable  {
 		top=0;
 
 
-		color_bkg                                = new Color( 114 , 110 , 99);
-		color_textfield                         = new Color( 214, 213, 209 );
-		color_border                            = new Color( 0, 0, 0 );
-		color_title                             = new Color( 255, 255, 255 );
+		color_bkg                                = ControlFrame.queryElementBG;
+		color_textfield                         = ControlFrame.queryElementTextarea;
+		color_border                            = ControlFrame.queryElementBorder;
+		color_title                             = ControlFrame.queryElementText;
+			    
 		color_inputticks                        = new Color( 0, 0, 0 );
 		color_outputticks                       = new Color( 0, 0, 0 );
 		color_inputlabels                       = new Color( 0, 0, 0 );
@@ -316,7 +317,7 @@ public class QueryElement implements Serializable  {
 		if(type==TYPE_RESULT)
 			g.setColor(Color.WHITE);
 		else
-			g.setColor(Color.BLACK);
+			g.setColor(color_border);
 		((Graphics2D)g).setStroke(new BasicStroke(2)); 
 		g.drawRect(left+1,top+1, width-2, height-2);
 
@@ -392,6 +393,14 @@ public class QueryElement implements Serializable  {
 
 	public void redrawn() {
 		redrawneeded = false;
+	}
+	
+	public void setColours(Color bg, Color border, Color textfield, Color title) {
+		color_bkg=bg;	
+		color_border=border;;
+		color_textfield=textfield;
+		color_title=title;
+		redraw();
 	}
 
 	public Point getInputInsertionPoint( String inputName ) {

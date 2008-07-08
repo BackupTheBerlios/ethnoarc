@@ -140,7 +140,7 @@ public class QueryBuildManager extends Object implements Runnable, Serializable 
 
 	private Color connectorRightColor;
 
-	private Color viewportBkgColor;
+	public static Color viewportBkgColor;
 
 	private DrawingCanvas queryCanvas;
 
@@ -276,7 +276,7 @@ public class QueryBuildManager extends Object implements Runnable, Serializable 
 
 		connectorRightColor = new Color(122, 153, 122);
 		connectorLeftColor = new Color(112, 133, 165);
-		viewportBkgColor = new Color(164, 159, 153);
+		viewportBkgColor = ControlFrame.frameBG;
 		//queryCanvas.setBackground(viewportBkgColor);
 
 		ToolTipManager ttm = ToolTipManager.sharedInstance();
@@ -356,7 +356,10 @@ public class QueryBuildManager extends Object implements Runnable, Serializable 
 				queryElement.setLabel("Entryfield");
 				queryElement
 						.setEnglishDescription("Entryfield to provide search strings for queries");
-				Point point = getGoodLocation(queryElement, 0, 0);
+							//Point point = getGoodLocation(queryElement, 0, 0);
+				Point point = queryCanvas.getMousePosition(true);
+				if(point==null)  point =getGoodLocation(queryElement, 0, 0);
+
 				queryElement.setLocation(point.x, point.y);
 				addQueryElement(queryElement);
 			}
@@ -371,7 +374,9 @@ public class QueryBuildManager extends Object implements Runnable, Serializable 
 				queryElement.setType(QueryElement.TYPE_RESULT);
 				queryElement
 						.setEnglishDescription("Result fields determine which fields results will appear in the result matrix.");
-				Point point = getGoodLocation(queryElement, 0, 0);
+				//Point point = getGoodLocation(queryElement, 0, 0);
+				Point point = queryCanvas.getMousePosition(true);
+				if(point==null)  point =getGoodLocation(queryElement, 0, 0);
 				queryElement.setLocation(point.x, point.y);
 				addQueryElement(queryElement);
 			}
@@ -386,7 +391,9 @@ public class QueryBuildManager extends Object implements Runnable, Serializable 
 				queryElement.setType(QueryElement.TYPE_OR);
 				queryElement
 						.setEnglishDescription("Allows an 'OR' connection for two objects or entry fields.");
-				Point point = getGoodLocation(queryElement, 0, 0);
+				//Point point = getGoodLocation(queryElement, 0, 0);
+				Point point = queryCanvas.getMousePosition(true);
+				if(point==null)  point =getGoodLocation(queryElement, 0, 0);
 				queryElement.setLocation(point.x, point.y);
 				addQueryElement(queryElement);
 			}
@@ -654,6 +661,22 @@ public class QueryBuildManager extends Object implements Runnable, Serializable 
 		}
 	}
 
+	public void repaintElements(){
+		Iterator iqe = queryElements.keySet().iterator();
+		while (iqe.hasNext()) {
+			QueryElement queryElement = (QueryElement) queryElements
+					.get(iqe.next());
+			queryElement.setColours(ControlFrame.queryElementBG, 
+					ControlFrame.queryElementBorder, 
+					ControlFrame.queryElementTextarea,
+					ControlFrame.queryElementText);		
+					queryElement.redrawTo();
+					queryElement.redrawn();
+				}
+			}
+		
+	
+	
 	private void mouseMovedEvent(int x, int y) {
 		Graphics g;
 
