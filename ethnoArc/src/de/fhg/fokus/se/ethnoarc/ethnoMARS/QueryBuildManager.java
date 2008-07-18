@@ -1579,16 +1579,77 @@ public class QueryBuildManager extends Object implements Runnable, Serializable 
 			public void actionPerformed(ActionEvent e) {
 				if (resultDisplay == TABBED_WINDOW) { // get reference to current tab
 					SaveSearchResults resultSaver = new SaveSearchResults();
-					resultSaver.tabbedExportExcel(tabbedPane, frame);
+					resultSaver.tabbedExportExcel(tabbedPane, frame,false);
 				} else {
 					DefaultTableModel dtm = (DefaultTableModel) table
 							.getModel();
 					SaveSearchResults resultSaver = new SaveSearchResults();
-					resultSaver.exportExcel(dtm, frame);
+					resultSaver.exportExcel(dtm, frame,false);
 				}
 			}
 		});
 		menu.add(menuItem);
+		
+		menuItem = new JMenuItem("Show in Excel");
+		menuItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String prevSaveName=SaveSearchResults.saveNameExcel;
+				if (resultDisplay == TABBED_WINDOW) { // get reference to current tab
+					SaveSearchResults resultSaver = new SaveSearchResults();
+					resultSaver.tabbedExportExcel(tabbedPane, frame, true);
+				} else {
+					DefaultTableModel dtm = (DefaultTableModel) table
+							.getModel();
+					SaveSearchResults resultSaver = new SaveSearchResults();
+					resultSaver.exportExcel(dtm, frame, true);
+				}
+				
+				try {
+					String osName = System.getProperty("os.name");
+					if (osName.startsWith("Mac OS")) {
+						Class fileMgr;
+
+						fileMgr = Class.forName("com.apple.eio.FileManager");
+
+						Method openURL;
+						openURL = fileMgr.getDeclaredMethod("openURL",
+								new Class[] { String.class });
+
+						openURL.invoke(null, new Object[] { SaveSearchResults.savedNameExcel });
+					} else if (osName.startsWith("Windows"))
+						Runtime.getRuntime()
+								.exec(
+										"rundll32 url.dll,FileProtocolHandler "
+												+ SaveSearchResults.savedNameExcel);
+					else { //assume Unix or Linux 
+						String[] browsers = { "firefox", "opera", "konqueror",
+								"epiphany", "mozilla", "netscape" };
+						String browser = null;
+						for (int count = 0; count < browsers.length
+								&& browser == null; count++)
+							if (Runtime.getRuntime().exec(
+									new String[] { "which", browsers[count] })
+									.waitFor() == 0)
+								browser = browsers[count];
+
+						if (browser == null)
+							throw new Exception("Could not find web browser");
+						else
+							Runtime.getRuntime().exec(
+									new String[] { browser, SaveSearchResults.savedNameExcel });
+					}
+				}
+
+				catch (Exception e1) {
+					e1.printStackTrace();
+				}
+				SaveSearchResults.saveNameExcel=prevSaveName;
+			}
+			
+		});
+		menu.add(menuItem);
+
+		
 		if (resultDisplay == TABBED_WINDOW)
 			menuItem = new JMenuItem("Save selected result tab as CSV");
 		else

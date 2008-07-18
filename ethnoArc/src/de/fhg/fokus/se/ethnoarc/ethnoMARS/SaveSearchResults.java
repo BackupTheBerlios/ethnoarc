@@ -47,19 +47,33 @@ import jxl.Workbook;
 import jxl.write.Label;
 
 public class SaveSearchResults {
-	static String saveNameExcel="Results.xls";
+	static public String saveNameExcel="Results.xls";
 	static String saveNameCSV="Results.csv";
+	static public String savedNameExcel=null;
 
-	public  void exportExcel(DefaultTableModel   model, JFrame frame){
+	public  void exportExcel(DefaultTableModel   model, JFrame frame, boolean autoFilename){
 		Label label;
+		
 		File file = new File( saveNameExcel);
-		JFileChooser fc = new JFileChooser();
+		if(!autoFilename){
+			JFileChooser fc = new JFileChooser();
 		fc.setSelectedFile( file );
 		fc.addChoosableFileFilter(new XLSFilter());
 		if (fc.showSaveDialog(frame) != JFileChooser.APPROVE_OPTION) return;
+		
 		file = fc.getSelectedFile();
+		}
+		else {
+			try {
+		file = File.createTempFile("ethnoArcResult",".xls");
+			} catch (Exception e) {System.err.println("Error saving file :"+e.getMessage());return;}
+		}
+		
 		saveNameExcel=new String(file.getName());
+
+		
 		try {
+			savedNameExcel=new String(file.getCanonicalPath());
 			WritableWorkbook workbook = Workbook.createWorkbook(file);
 			WritableSheet resultSheet = workbook.createSheet("ethnoArc Search Result", 0);
 			// write headers
@@ -82,16 +96,24 @@ public class SaveSearchResults {
 
 	}
 
-	public  void tabbedExportExcel(JTabbedPane tabbedPane, JFrame frame){
+	public  void tabbedExportExcel(JTabbedPane tabbedPane, JFrame frame, boolean autoFilename){
 		Label label;
 		File file = new File( saveNameExcel);
+		if(!autoFilename){
 		JFileChooser fc = new JFileChooser();
 		fc.setSelectedFile( file );
 		fc.addChoosableFileFilter(new XLSFilter());
 		if (fc.showSaveDialog(frame) != JFileChooser.APPROVE_OPTION) return;
 		file = fc.getSelectedFile();
+		}
+		else {
+			try {
+		file = File.createTempFile("ethnoArcResult",".xls");
+			} catch (Exception e) {System.err.println("Error saving file :"+e.getMessage());return;}
+		}
 		saveNameExcel=new String(file.getName());
 		try {
+			savedNameExcel=new String(file.getCanonicalPath());
 			WritableWorkbook workbook = Workbook.createWorkbook(file);
 			for(int tab=0; tab<tabbedPane.getComponentCount(); tab++){
 				tabbedPane.getTitleAt(tab);
